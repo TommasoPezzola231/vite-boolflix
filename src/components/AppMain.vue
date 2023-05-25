@@ -47,7 +47,10 @@ export default {
             return indirizzo
         },
         getFlag(element) {
-            let flag = this.flags.element
+            console.log(element)
+            let x = `.${element}`
+            console.log(this.flags[x])
+            let flag = this.flags[x]
             if (flag == undefined) {
                 return `https://upload.wikimedia.org/wikipedia/commons/6/6a/Earth_Day_Flag.png`
             } else {
