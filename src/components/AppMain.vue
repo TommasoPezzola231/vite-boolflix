@@ -7,7 +7,15 @@ export default {
     data() {
         return {
             store,
-            search: ""
+            search: "",
+            flags: [
+                {
+                    it: `https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/800px-Flag_of_Italy.svg.png`,
+                    en: `https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg`,
+                    es: `https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg`,
+
+                },
+            ]
         }
     },
     methods: {
@@ -37,6 +45,14 @@ export default {
 
             console.log("Console log serieTV", this.store.serieTV)
             return indirizzo
+        },
+        getFlag(element) {
+            let flag = this.flags.element
+            if (flag == undefined) {
+                return `https://upload.wikimedia.org/wikipedia/commons/6/6a/Earth_Day_Flag.png`
+            } else {
+                return flag
+            }
         }
     }
 }
@@ -58,7 +74,7 @@ export default {
                         <div class="card">
                             <h3>Titolo originale = {{ film.original_title }}</h3>
                             <h4>Titolo = {{ film.title }}</h4>
-                            <h6>Lingua = {{ film.original_language }}</h6>
+                            <p>Lingua = <img :src="getFlag(film.original_language)"></p>
                             <h6>Voto = {{ film.vote_average }}</h6>
                         </div>
                     </template>
@@ -71,7 +87,7 @@ export default {
                         <div class="card">
                             <h3>Titolo originale = {{ serie.original_name }}</h3>
                             <h4>Titolo = {{ serie.namme }}</h4>
-                            <h6>Lingua = {{ serie.original_language }}</h6>
+                            <p>Lingua = <img :src="getFlag(serie.original_language)"></p>
                             <h6>Voto = {{ serie.vote_average }}</h6>
                         </div>
                     </template>
@@ -93,6 +109,13 @@ h2 {
     text-align: center;
     margin-top: 2rem;
     margin-bottom: 2rem;
+}
+
+p {
+    img {
+        width: 20px;
+        display: inline-block;
+    }
 }
 
 .card {
