@@ -12,21 +12,31 @@ export default {
     },
     methods: {
         filteredFilm() {
-            let url = this.takeAPI(this.search)
+            let filmUrl = this.takeAPIfilm(this.search)
 
-            axios.get(url).then(result => {
-                console.log(result.data.results)
+            axios.get(filmUrl).then(result => {
 
                 this.store.films = result.data.results
             })
-        },
-        takeAPI(element) {
-            let indirizzo = `${this.store.urlAPI}/search/movie?api_key=${this.store.APIkey}&query=${element}`
-            this.store.film = indirizzo
-            console.log("Console log this.store.film", this.store.films)
-            console.log(indirizzo)
-            return indirizzo
 
+            let serieUrl = this.takeAPIserie(this.search)
+
+            axios.get(serieUrl).then(result => {
+                console.log(result.data.results)
+
+                this.store.serieTV = result.data.results
+            })
+        },
+        takeAPIfilm(element) {
+            let indirizzo = `${this.store.urlAPI}/search/movie?api_key=${this.store.APIkey}&query=${element}`
+
+            return indirizzo
+        },
+        takeAPIserie(element) {
+            let indirizzo = `${this.store.urlAPI}/search/tv?api_key=${this.store.APIkey}&query=${element}`
+
+            console.log("Console log serieTV", this.store.serieTV)
+            return indirizzo
         }
     }
 }
@@ -38,20 +48,34 @@ export default {
             <div class="container">
 
                 <div class="search">
-                    <input type="text" v-model="search" placeholder="Cosa vuoi vedere?">
+                    <input @keyup.enter="filteredFilm()" type="text" v-model="search" placeholder="Cosa vuoi vedere?">
                     <button @click="filteredFilm()">Cerca</button>
                 </div>
 
+                <h2>Elenco Film</h2>
                 <div class="flex">
                     <template v-for="film in this.store.films">
                         <div class="card">
                             <h3>Titolo originale = {{ film.original_title }}</h3>
                             <h4>Titolo = {{ film.title }}</h4>
-                            <h6>Lingua = {{ film.original_language }}; Voto = {{ film.vote_average }}</h6>
+                            <h6>Lingua = {{ film.original_language }}</h6>
+                            <h6>Voto = {{ film.vote_average }}</h6>
                         </div>
                     </template>
                 </div>
 
+                <h2>Elenco Serie TV</h2>
+                <div class="flex">
+                    <template v-for="serie in this.store.serieTV">
+
+                        <div class="card">
+                            <h3>Titolo originale = {{ serie.original_name }}</h3>
+                            <h4>Titolo = {{ serie.namme }}</h4>
+                            <h6>Lingua = {{ serie.original_language }}</h6>
+                            <h6>Voto = {{ serie.vote_average }}</h6>
+                        </div>
+                    </template>
+                </div>
             </div>
         </section>
     </main>
@@ -63,6 +87,12 @@ export default {
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .card {
