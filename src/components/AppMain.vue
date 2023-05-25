@@ -21,13 +21,14 @@ export default {
 
             axios.get(filmUrl).then(result => {
 
+                console.log("Film--------------", result.data.results)
                 this.store.films = result.data.results
             })
 
             let serieUrl = this.takeAPIserie(this.search)
 
             axios.get(serieUrl).then(result => {
-                console.log(result.data.results)
+                console.log("SerieTV--------------", result.data.results)
 
                 this.store.serieTV = result.data.results
             })
@@ -40,7 +41,15 @@ export default {
         takeAPIserie(element) {
             let indirizzo = `${this.store.urlAPI}/search/tv?api_key=${this.store.APIkey}&query=${element}`
 
-            console.log("Console log serieTV", this.store.serieTV)
+            return indirizzo
+        },
+        takeAPIimg(element) {
+            let indirizzo = `https://www.engineeringstandards.in/image/cache/data/images%20%20not%20X-180x250.jpg`
+
+            if (element != undefined) {
+                indirizzo = `${this.store.imgAPI}${element}`
+                return indirizzo
+            }
             return indirizzo
         },
         getFlag(element) {
@@ -73,27 +82,32 @@ export default {
 
                 <h2>Elenco Film</h2>
                 <div class="flex">
+
                     <template v-for="film in this.store.films">
-                        <div class="card">
+                        <div class="card flex">
+                            <img :src="takeAPIimg(film.poster_path)">
                             <h3>Titolo originale = {{ film.original_title }}</h3>
                             <h4>Titolo = {{ film.title }}</h4>
                             <p>Lingua = <img :src="getFlag(film.original_language)"></p>
                             <h6>Voto = {{ film.vote_average }}</h6>
                         </div>
                     </template>
+
                 </div>
 
                 <h2>Elenco Serie TV</h2>
                 <div class="flex">
-                    <template v-for="serie in this.store.serieTV">
 
-                        <div class="card">
+                    <template v-for="serie in this.store.serieTV">
+                        <div class="card flex">
+                            <img :src="takeAPIimg(serie.poster_path)">
                             <h3>Titolo originale = {{ serie.original_name }}</h3>
                             <h4>Titolo = {{ serie.namme }}</h4>
                             <p>Lingua = <img :src="getFlag(serie.original_language)"></p>
                             <h6>Voto = {{ serie.vote_average }}</h6>
                         </div>
                     </template>
+
                 </div>
             </div>
         </section>
