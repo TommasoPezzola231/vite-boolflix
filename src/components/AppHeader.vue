@@ -2,10 +2,6 @@
 
 </script>
 
-<template>
-    <AppHeader />
-
-    <AppMain />
-</template>
+<template></template>
 
 <style lang="scss" scoped></style>
