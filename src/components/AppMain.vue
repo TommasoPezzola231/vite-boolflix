@@ -8,14 +8,11 @@ export default {
         return {
             store,
             search: "",
-            flags: [
-                {
-                    it: `https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/800px-Flag_of_Italy.svg.png`,
-                    en: `https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg`,
-                    es: `https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg`,
-
-                },
-            ]
+            flags: {
+                it: `https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/800px-Flag_of_Italy.svg.png`,
+                en: `https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg`,
+                es: `https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg`,
+            }
         }
     },
     methods: {
@@ -47,15 +44,18 @@ export default {
             return indirizzo
         },
         getFlag(element) {
-            console.log(element)
-            let x = `.${element}`
-            console.log(this.flags[x])
-            let flag = this.flags[x]
-            if (flag == undefined) {
-                return `https://upload.wikimedia.org/wikipedia/commons/6/6a/Earth_Day_Flag.png`
-            } else {
-                return flag
-            }
+            //Nullish coalescing operator
+
+            return this.flags[element] ?? `https://upload.wikimedia.org/wikipedia/commons/6/6a/Earth_Day_Flag.png`;
+
+            //  {
+            //      let flag = this.flags[element];
+            //      if (flag == undefined) {
+            //          return `https://upload.wikimedia.org/wikipedia/commons/6/6a/Earth_Day_Flag.png`;
+            //      } else {
+            //          return flag;
+            //      }
+            //  }
         }
     }
 }
