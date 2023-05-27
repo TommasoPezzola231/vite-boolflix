@@ -16,33 +16,6 @@ export default {
         }
     },
     methods: {
-        filteredFilm() {
-            let filmUrl = this.takeAPIfilm(this.search)
-
-            axios.get(filmUrl).then(result => {
-
-                console.log("Film--------------", result.data.results)
-                this.store.films = result.data.results
-            })
-
-            let serieUrl = this.takeAPIserie(this.search)
-
-            axios.get(serieUrl).then(result => {
-                console.log("SerieTV--------------", result.data.results)
-
-                this.store.serieTV = result.data.results
-            })
-        },
-        takeAPIfilm(element) {
-            let indirizzo = `${this.store.urlAPI}/search/movie?api_key=${this.store.APIkey}&query=${element}`
-
-            return indirizzo
-        },
-        takeAPIserie(element) {
-            let indirizzo = `${this.store.urlAPI}/search/tv?api_key=${this.store.APIkey}&query=${element}`
-
-            return indirizzo
-        },
         takeAPIimg(element) {
             let indirizzo = `https://www.engineeringstandards.in/image/cache/data/images%20%20not%20X-180x250.jpg`
 
@@ -67,9 +40,7 @@ export default {
             //  }
         },
         getStar(number) {
-            console.log(number)
             let starNumber = Math.ceil(number / 2)
-            console.log(starNumber)
             return starNumber
         }
     }
@@ -81,10 +52,6 @@ export default {
         <section>
             <div class="container">
 
-                <div class="search">
-                    <input @keyup.enter="filteredFilm()" type="text" v-model="search" placeholder="Cosa vuoi vedere?">
-                    <button @click="filteredFilm()">Cerca</button>
-                </div>
 
                 <h2>Elenco Film</h2>
                 <div class="flex">
