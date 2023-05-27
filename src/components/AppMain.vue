@@ -65,6 +65,12 @@ export default {
             //          return flag;
             //      }
             //  }
+        },
+        getStar(number) {
+            console.log(number)
+            let starNumber = Math.ceil(number / 2)
+            console.log(starNumber)
+            return starNumber
         }
     }
 }
@@ -89,7 +95,13 @@ export default {
                             <h3>Titolo originale = {{ film.original_title }}</h3>
                             <h4>Titolo = {{ film.title }}</h4>
                             <p>Lingua = <img :src="getFlag(film.original_language)"></p>
-                            <h6>Voto = {{ film.vote_average }}</h6>
+                            <h6>Voto =
+                                <span v-for="star in getStar(film.vote_average)">
+
+                                    <i class="fa-solid fa-star"></i>
+
+                                </span>
+                            </h6>
                         </div>
                     </template>
 
@@ -104,7 +116,13 @@ export default {
                             <h3>Titolo originale = {{ serie.original_name }}</h3>
                             <h4>Titolo = {{ serie.namme }}</h4>
                             <p>Lingua = <img :src="getFlag(serie.original_language)"></p>
-                            <h6>Voto = {{ serie.vote_average }}</h6>
+                            <h6>Voto =
+                                <span v-for="star in getStar(serie.vote_average)">
+
+                                    <i class="fa-solid fa-star"></i>
+
+                                </span>
+                            </h6>
                         </div>
                     </template>
 
@@ -140,5 +158,9 @@ p {
     padding: 1rem;
     border: 1px solid red;
     background-color: greenyellow;
+
+    .fa-star {
+        color: yellow;
+    }
 }
 </style>
