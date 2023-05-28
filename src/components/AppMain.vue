@@ -57,18 +57,29 @@ export default {
                 <div class="flex">
 
                     <template v-for="film in this.store.films">
-                        <div class="card flex">
-                            <img :src="takeAPIimg(film.poster_path)">
-                            <h3>Titolo originale = {{ film.original_title }}</h3>
-                            <h4>Titolo = {{ film.title }}</h4>
-                            <p>Lingua = <img :src="getFlag(film.original_language)"></p>
-                            <h6>Voto =
-                                <span v-for="star in getStar(film.vote_average)">
+                        <div class="flip-card">
 
-                                    <i class="fa-solid fa-star"></i>
+                            <div class="card flex">
 
-                                </span>
-                            </h6>
+                                <div class="card-front">
+                                    <img :src="takeAPIimg(film.poster_path)">
+                                </div>
+
+                                <div class="card-back">
+                                    <h3>Titolo originale = {{ film.original_title }}</h3>
+                                    <h4>Titolo = {{ film.title }}</h4>
+                                    <p>Lingua = <img :src="getFlag(film.original_language)"></p>
+                                    <h6>Voto =
+                                        <span v-for="star in getStar(film.vote_average)">
+
+                                            <i class="fa-solid fa-star"></i>
+
+                                        </span>
+                                    </h6>
+                                </div>
+
+                            </div>
+
                         </div>
                     </template>
 
@@ -78,18 +89,29 @@ export default {
                 <div class="flex">
 
                     <template v-for="serie in this.store.serieTV">
-                        <div class="card flex">
-                            <img :src="takeAPIimg(serie.poster_path)">
-                            <h3>Titolo originale = {{ serie.original_name }}</h3>
-                            <h4>Titolo = {{ serie.namme }}</h4>
-                            <p>Lingua = <img :src="getFlag(serie.original_language)"></p>
-                            <h6>Voto =
-                                <span v-for="star in getStar(serie.vote_average)">
+                        <div class="flip-card">
 
-                                    <i class="fa-solid fa-star"></i>
+                            <div class="card flex">
 
-                                </span>
-                            </h6>
+                                <div class="card-front">
+                                    <img :src="takeAPIimg(serie.poster_path)">
+                                </div>
+
+                                <div class="card-back">
+                                    <h3>Titolo originale = {{ serie.original_name }}</h3>
+                                    <h4>Titolo = {{ serie.namme }}</h4>
+                                    <p>Lingua = <img :src="getFlag(serie.original_language)"></p>
+                                    <h6>Voto =
+                                        <span v-for="star in getStar(serie.vote_average)">
+
+                                            <i class="fa-solid fa-star"></i>
+
+                                        </span>
+                                    </h6>
+                                </div>
+
+                            </div>
+
                         </div>
                     </template>
 
@@ -100,6 +122,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+main {
+    background-color: gray;
+}
+
 .flex {
     display: flex;
     flex-direction: row;
@@ -109,7 +135,7 @@ export default {
 
 h2 {
     text-align: center;
-    margin-top: 2rem;
+    padding-top: 2rem;
     margin-bottom: 2rem;
 }
 
@@ -121,13 +147,59 @@ p {
 }
 
 .card {
-    width: 20%;
-    padding: 1rem;
-    border: 1px solid red;
-    background-color: greenyellow;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+
+    .card-front {
+        display: flex;
+        align-items: center;
+
+        >img {
+            width: 100%;
+            object-fit: cover;
+        }
+    }
 
     .fa-star {
         color: yellow;
     }
+}
+
+/*********Animation flip card ***************/
+
+.flip-card {
+    background-color: transparent;
+    width: 20%;
+    height: 400px;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px;
+    display: flex;
+}
+
+.flip-card:hover .card {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.card-front {
+    background-color: #bbb;
+    color: black;
+}
+
+.card-back {
+    background-color: black;
+    color: white;
+    transform: rotateY(180deg);
 }
 </style>
