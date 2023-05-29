@@ -73,7 +73,7 @@ export default {
                                     <h6>Voto =
                                         <span v-for="star in getStar(film.vote_average)">
 
-                                            <i class="fa-solid fa-star"></i>
+                                            <font-awesome-icon icon="fa-solid fa-star" />
 
                                         </span>
                                         <span>({{ film.vote_count }})</span>
@@ -107,7 +107,7 @@ export default {
                                     <h6>Voto =
                                         <span v-for="star in getStar(serie.vote_average)">
 
-                                            <i class="fa-solid fa-star"></i>
+                                            <font-awesome-icon icon="fa-solid fa-star" />
 
                                         </span>
                                         <span>({{ serie.vote_count }})</span>
