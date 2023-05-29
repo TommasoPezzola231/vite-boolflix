@@ -40,9 +40,10 @@ export default {
             //  }
         },
         getStar(number) {
-            let starNumber = Math.ceil(number / 2)
+            let starNumber = Math.round(number / 2)
             return starNumber
-        }
+        },
+
     }
 }
 </script>
@@ -75,7 +76,9 @@ export default {
                                             <i class="fa-solid fa-star"></i>
 
                                         </span>
+                                        <span>({{ film.vote_count }})</span>
                                     </h6>
+                                    <p class="descrizione">{{ film.overview }}</p>
                                 </div>
 
                             </div>
@@ -107,7 +110,9 @@ export default {
                                             <i class="fa-solid fa-star"></i>
 
                                         </span>
+                                        <span>({{ serie.vote_count }})</span>
                                     </h6>
+                                    <p class="descrizione">{{ serie.overview }}</p>
                                 </div>
 
                             </div>
@@ -153,6 +158,12 @@ p {
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
+
+    .descrizione {
+        margin-top: 1rem;
+        padding: 0 1rem;
+        font-size: 13px;
+    }
 
     .card-front {
         display: flex;
